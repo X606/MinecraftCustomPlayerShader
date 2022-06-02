@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="header">
+
+    </div>
+    <div class="content">
+      <div class="sidebar">
+        <div class="sidebarInnerHolder">
+          <input type="file" id="fileInput" />
+          
+          <div class="actionsTitleHolder">
+            <h2>Actions</h2>
+            <button id="addActionButton" class="greenButton">+</button>
+          </div>
+        
+          <template id="actionTemplate">
+            <div class="actionDisplay">
+              <p id="label">Glow</p>
+              <button id="selectButton" class="greenButton">Select</button>
+              <button id="deleteButton" class="redButton">Delete</button>
+            </div>
+          </template>
+          
+          <div id="actionsHolder"></div>
+
+        </div>
+      </div>
+      <canvas class="mainContent" width="1024" height="1024" id="canvas"></canvas>
+    </div>
+  </body>
+</html>
