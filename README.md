@@ -3,6 +3,7 @@ A resource pack that lets you customize your skin even more!
 
 ### What even is this??
 Heres the template minecraft skin you can get from [here](http://assets.mojang.com/SkinTemplates/4px_reference.png "here"):
+
 [![](http://assets.mojang.com/SkinTemplates/4px_reference.png)](http://assets.mojang.com/SkinTemplates/4px_reference.png)
 
 Notice anything? Theres so much space with no purpose!
