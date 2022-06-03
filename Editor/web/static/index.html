@@ -7,13 +7,13 @@
   </head>
   <body>
     <div class="header">
-
+      <button id="importImageButton" class="greenButton">Import Image</button>
+      <button id="importPlayerButton" class="greenButton">Import Player</button>
+      <button id="exportButton" class="blueButton">Export</button>
     </div>
     <div class="content">
       <div class="sidebar">
         <div class="sidebarInnerHolder">
-          <input type="file" id="fileInput" />
-          
           <div class="actionsTitleHolder">
             <h2>Actions</h2>
             <button id="addActionButton" class="greenButton">+</button>
@@ -21,17 +21,43 @@
         
           <template id="actionTemplate">
             <div class="actionDisplay">
-              <p id="label">Glow</p>
+              <!--<p id="label">Glow</p>-->
+              <select id="label">
+                <option value="1">Glow</option>
+                <option value="2">Pulse (ltl)</option>
+                <option value="3">Pulse (ltu)</option>
+                <option value="4">Pulse (utl)</option>
+                <option value="5">Pulse (utu)</option>
+                <option value="6">Border (ll)</option>
+                <option value="7">Border (lu)</option>
+                <option value="8">Border (ul)</option>
+                <option value="9">Border (uu)</option>
+                <option value="10">Transparancy</option>
+                <option value="11">Metallic</option>
+              </select>
               <button id="selectButton" class="greenButton">Select</button>
               <button id="deleteButton" class="redButton">Delete</button>
             </div>
           </template>
           
-          <div id="actionsHolder"></div>
+          <div id="actionsHolder" class="actionsHolder"></div>
 
         </div>
       </div>
       <canvas class="mainContent" width="1024" height="1024" id="canvas"></canvas>
     </div>
+    
+    <template id="popupTemplate">
+      <div class="popup" id="popup">
+        <div class="popupWindow">
+          <div class="popupHeader">
+            <button id="xButton" class="redButton">X</button>
+          </div>
+          
+          <div id="popupBody" class="popupBody"></div>
+
+        </div>
+      </div>
+    </template>
   </body>
 </html>

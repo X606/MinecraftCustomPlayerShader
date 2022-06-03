@@ -22,7 +22,6 @@ ivec2 getUnusedPlayerPixelFromIndex(int index) {
     highp float y = floor(float(index)/24.0);
 
     result += ivec2(x,y) * applies;
-    return result;
   }
 
   {
@@ -35,7 +34,6 @@ ivec2 getUnusedPlayerPixelFromIndex(int index) {
     highp float y = 16.0 + floor(float(newIndex/24.0)) + (float(newIndex >= (4.0*24.0))*12.0);
 
     result += ivec2(x,y) * applies;
-    return result;
   }
   {
     lowp int applies = int((index < ((8*24)+(8*24)+(32*8))) && (index >= ((8*24)+(8*24))));
@@ -46,7 +44,6 @@ ivec2 getUnusedPlayerPixelFromIndex(int index) {
     highp float y = 16.0 + floor(newIndex/8.0);
 
     result += ivec2(x,y) * applies;
-    return result;
   }
   {
     lowp int applies = int(index >= ((8*24)+(8*24)+(32*8)));
@@ -58,7 +55,6 @@ ivec2 getUnusedPlayerPixelFromIndex(int index) {
     highp float y = 48.0 + floor(newIndex/32.0);
 
     result += ivec2(x,y) * applies;
-    return result;
   }
 
   return result;
@@ -168,8 +164,10 @@ void applyEffectOutlines(vec2 pos, inout vec4 color) {
         }
         if (isWithin(pos*64.0,vec4(min,max))) {
           highp float a = 0.4;
-          if ((currentIndex/3) == uSelectedAction) {
-            a = 0.6;
+
+          highp int selectedId = min.x + min.y*64 + max.x*4096 + max.y*262144;
+          if (selectedId == uSelectedAction) {
+            a = 0.9;
             col = mix(col,vec3(1,1,1),0.8);
           }
           color = color * (1.0-a) + vec4(col.rgb,1) * a;

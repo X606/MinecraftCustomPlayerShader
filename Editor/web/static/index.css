@@ -2,6 +2,8 @@
   --min-sidebar-width: 250px;
   --header-height: 2em;
   --buttonPrePressAmount: 0.05em;
+
+  --highlightColor: #ffaa00;
 }
 
 body {
@@ -14,8 +16,23 @@ body {
   overflow: hidden;
 }
 .header {
-  height: var(--header-height);
-  background-color: red;
+  height: calc(var(--header-height) - 2px);
+  background-color: #282828;
+
+  display: flex;
+  align-items:center;
+  justify-content:center;
+
+  padding-left: 1em;
+  padding-right: 1em;
+
+  border-bottom-color: #121212;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+}
+.header > * {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
 }
 .content {  
   width: 100vw;
@@ -101,7 +118,10 @@ button:active {
   transform: translateY(0.25em);
   margin-bottom: 0.20em;
 }
-
+.actionsHolder {
+  max-height: 30vh;
+  overflow-x: scroll;
+}
 .actionDisplay{
   display: inline-block;
   display: flex;
@@ -130,6 +150,8 @@ button:active {
 }
 .actionDisplay > p {
   margin: 0px;
+}
+.actionDisplay > *:first-child{
   margin-right: auto;
 }
 
@@ -140,4 +162,46 @@ button:active {
 }
 .actionsTitleHolder > button {
   font-size: 1.5em;
+}
+
+
+.popup{
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background-color: #121212aa;
+}
+.popupHeader {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  left: 0.5em;
+  display: flex; 
+  justify-content: flex-end;
+  align-items: center;
+}
+.popupWindow {
+  position: relative;
+  width: 30vw;
+
+  margin-top: 15vh;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+
+  background-color: #222222;
+  border-left-style: solid;
+  border-left-width: 2px;
+  border-left-color: var(--highlightColor)
+
+}
+.popupBody > * {
+  display: block;
+  padding-bottom: 4px;
+}
+.popupBody > h1:first-child{
+  margin-top: 0px;
+  padding-top: 0px;
 }
