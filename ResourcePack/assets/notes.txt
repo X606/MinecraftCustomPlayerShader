@@ -1,0 +1,40 @@
+the player texture (4 pixel arms) has 832 pixels free
+
+shader for player skulls: rendertype_entity_cutout_no_cull_z_offset (apparently wrong, this shader is only used for the "normal" player skull without a skin, the ones with skins use rendertype_entity_translucent)
+shader for player: rendertype_entity_translucent
+shader for player arm (first person): rendertype_entity_solid
+
+
+lookup table:
+top left (0,0): [141,61,147] (to tell the shader this skin is using the custom stuff)
+(3,0): light0Color [R,G,B]
+(4,0): light1Color [R,G,B]
+(7,0): ambientColor [R,G,B]
+(7,2): lightStrengths [L0,L1,A]
+(7,3): Reserved
+(7,4): Reserved
+(7,5): Reserved
+
+table item: [lowerIndex][UppedIndex (*256)][length (in action blocks)]
+
+
+
+
+actions:
+[xMin][yMin][actionID] [xMax][yMax][data] [dataR][dataG][dataB]
+
+(Min < value <= Max)
+
+action ids:
+0: save (instead of using the data like above, is simply saves it so later actions can use it. This is to let some actions use more than 4 bytes + 
+1: glow; [data0] = brightness
+2: pulse (lit to lit); [data0] = time, [dataR,dataG,dataB] = other color
+3: pulse (lit to unlit); data = time, [dataR,dataG,dataB] = other color
+4: pulse (unlit to lit); data = time, [dataR,dataG,dataB] = other color
+5: pulse (unlit to unlit); data = time, [dataR,dataG,dataB] = other color
+6: border (lit lit); data = borderThickness, [dataR,dataG,dataB] = outlineColor
+7: border (lit unlit); data = borderThickness, [dataR,dataG,dataB] = outlineColor
+8: border (unlit lit); data = borderThickness, [dataR,dataG,dataB] = outlineColor
+9: border (unlit unlit); data = borderThickness, [dataR,dataG,dataB] = outlineColor
+10: transparency; data = transparency
+11: metallic;
