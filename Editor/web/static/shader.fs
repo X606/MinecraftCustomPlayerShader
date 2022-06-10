@@ -71,16 +71,16 @@ uniform lowp int uSelectedAction;
 
 out highp vec4 fragColor;
 
-bool outline(vec2 position, vec4 minmax, highp float width) {
+bool outline(highp vec2 position, highp vec4 minmax, highp float width) {
       highp vec2 offset = min(abs(minmax.xy-position),abs((minmax.zw+vec2(1.0))-position));
 
       return (offset.y < width || offset.x < width);
 }
-bool isWithin(vec2 position, vec4 minmax) {
+bool isWithin(highp vec2 position, highp vec4 minmax) {
   return (position.x > minmax.x && position.x <= (minmax.z+1.0)) && (position.y > minmax.y && position.y <= (minmax.w+1.0));
 }
 
-void applyGrid(vec2 pos, inout vec4 color) {
+void applyGrid(highp vec2 pos, inout highp vec4 color) {
   if (outline(fract(pos*64.0), vec4(0,0,1,1), gridWidth)) {
     highp float a = 0.05;
     color = color * (1.0-a) + vec4(0,0,0,1) * a;
@@ -91,7 +91,7 @@ void applyGrid(vec2 pos, inout vec4 color) {
   }
 
 }
-void applySelectedOutline(vec2 pos, inout vec4 color) {
+void applySelectedOutline(highp vec2 pos, inout highp vec4 color) {
   if(uCursor == vec4(-1,-1,-1,-1)){
     return; 
   }
@@ -102,7 +102,7 @@ void applySelectedOutline(vec2 pos, inout vec4 color) {
     color = (color * (1.0-0.4)) + vec4(1,0,0,1) * 0.4;
   }
 }
-void applySkinOutline(vec2 pos, inout vec4 color) {
+void applySkinOutline(highp vec2 pos, inout highp vec4 color) {
   highp vec4 outlineData = texture(uOutlineSampler, pos)*255.0;
 
   /*if ((texture(uOutlineSampler, pos + vec2(1.0/1024.0,0)) != texture(uOutlineSampler, pos + vec2(-1.0/1024.0,0))) || (texture(uOutlineSampler, pos + vec2(0,1.0/1024.0)) != texture(uOutlineSampler, pos + vec2(0,-1.0/1024.0)))) {
@@ -126,13 +126,13 @@ void applySkinOutline(vec2 pos, inout vec4 color) {
   }
   
 }
-highp vec3 hsv2rgb(vec3 c)
+highp vec3 hsv2rgb(highp vec3 c)
 {
     highp vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
     highp vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
     return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
-void applyEffectOutlines(vec2 pos, inout vec4 color) {
+void applyEffectOutlines(highp vec2 pos, inout highp vec4 color) {
   if (hasSpecialEnableColor < 0.5) // if this skin doesn't have the special enable color, dont do anything
     return;
 

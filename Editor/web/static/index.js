@@ -176,7 +176,11 @@ function OnImageLoaded(dataUrl) {
     let actionColor = action.getActionColor();
     templateInstance.setAttribute("style", "--color: " + actionColor[0] + ", " + actionColor[1] + ", " + actionColor[2] + ";");
     templateInstance.querySelector("#selectButton").addEventListener("click", function(e) {
-      console.log("select clicked" + i);
+      populateOptionsForAction(action, function(newAction) {
+        skinData.Actions[i] = newAction;
+
+        writeDataFromImageBuffer(skinBuffer, skinData);
+      });
     });
     templateInstance.querySelector("#deleteButton").addEventListener("click", function(e) {
       skinData.Actions.splice(i, 1);
@@ -352,6 +356,78 @@ function popupWindow(createCallback) {
 
   createCallback(builder);
   document.body.appendChild(popup);
+}
+function populateOptions(createCallback) {
+  let holder = document.getElementById("actionsOptionsHolder");
+
+  while(holder.firstChild) { // remove all children
+    holder.removeChild(holder.lastChild);
+  }
+
+  let builder = {
+    addSlider: function(name, min, max, value, onChange) {
+      let title = document.createElement("label");
+      title.innerText = name;
+
+      let slider = document.createElement("input");
+      slider.setAttribute("type", "range");
+      slider.setAttribute("min", min);
+      slider.setAttribute("max", max);
+      slider.value = value;
+      slider.addEventListener("change", (e) => { if (onChange) {onChange(e.target.value)}});
+
+      let silderHolder = document.createElement("div");
+      silderHolder.setAttribute("class", "sliderHolder");
+      silderHolder.appendChild(title);
+      silderHolder.appendChild(slider);
+
+      holder.appendChild(silderHolder);
+    },
+    addColorInput: function(name, value, onChange) {
+      let title = document.createElement("label");
+      title.innerText = name;
+
+      let slider = document.createElement("input");
+      slider.setAttribute("type", "color");
+      slider.value = value;
+      slider.addEventListener("change", (e) => { if (onChange) {onChange(e.target.value)}});
+
+      let silderHolder = document.createElement("div");
+      silderHolder.setAttribute("class", "sliderHolder");
+      silderHolder.appendChild(title);
+      silderHolder.appendChild(slider);
+
+      holder.appendChild(silderHolder);
+    },
+    addText: function(text) {
+      let textElement = document.createElement("p");
+      textElement.innerText = text;
+
+      holder.appendChild(textElement);
+    }
+  };
+
+  createCallback(builder);
+}
+function populateOptionsForAction(action, callback) {
+  let lookupDict = {
+    1: function() {
+      populateOptions(function(builder) {
+        builder.addSlider("Brightness", 0, 255, action.Data[0], function(newValue) {
+          action.Data[0] = newValue;
+          return action;
+        });
+      });
+    },
+
+    11: function() {
+      populateOptions(function(builder) {
+        builder.addText("no options avaliable");
+      });
+    }
+  };
+
+  lookupDict[action.Id]();
 }
 
 var positionBuffer = null;

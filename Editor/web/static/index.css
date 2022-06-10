@@ -43,7 +43,6 @@ body {
 .sidebar {
   background-color: #222222;
   width: var(--min-sidebar-width);
-  text-align: center;
 }
 .sidebarInnerHolder{
   padding: 4px;
@@ -118,9 +117,9 @@ button:active {
   transform: translateY(0.25em);
   margin-bottom: 0.20em;
 }
-.actionsHolder {
+.siderbarItem {
   max-height: 30vh;
-  overflow-x: scroll;
+  overflow-y: auto;
 }
 .actionDisplay{
   display: inline-block;
@@ -163,7 +162,9 @@ button:active {
 .actionsTitleHolder > button {
   font-size: 1.5em;
 }
-
+.sliderHolder > label {
+  display: block;
+}
 
 .popup{
   position: absolute;
